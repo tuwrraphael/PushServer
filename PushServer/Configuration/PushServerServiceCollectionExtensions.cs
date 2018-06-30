@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using PushServer.Impl;
+using PushServer.Services;
 
 namespace PushServer.Configuration
 {
@@ -6,6 +8,8 @@ namespace PushServer.Configuration
     {
         public static IPushServerBuilder AddPushServer(this IServiceCollection services)
         {
+            services.AddTransient<IPushService, PushService>();
+            services.AddTransient<IPushConfigurationManager, PushConfigurationManager>();
             return new PushServerBuilder()
             {
                 Services = services

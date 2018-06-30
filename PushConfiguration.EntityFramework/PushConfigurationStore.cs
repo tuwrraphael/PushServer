@@ -3,6 +3,7 @@ using PushServer.PushConfiguration.Abstractions.Models;
 using PushServer.PushConfiguration.Abstractions.Services;
 using PushServer.PushConfiguration.EntityFramework.Entities;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -134,6 +135,53 @@ namespace PushServer.PushConfiguration.EntityFramework
             channel.EndpointInfo = registration.DeviceInfo;
             await CreateOptionsAsync(registration.Options, channel.Id);
             await configurationContext.SaveChangesAsync();
+        }
+
+        public async Task<Abstractions.Models.PushChannelConfiguration> GetAsync(string configurationId)
+        {
+            return await configurationContext.PushChannelConfigurations.Include(v => v.Options).Where(v => v.Id == configurationId)
+               .Select(v => new Abstractions.Models.PushChannelConfiguration()
+               {
+                   EndpointInfo = v.EndpointInfo,
+                   Id = v.Id,
+                   Options = new PushChannelOptions(v.Options.ToDictionary(d => d.Key, d => d.Value)),
+                   ChannelType = v.Type
+               }).SingleAsync();
+        }
+
+        public async Task<PushEndpoint> GetEndpointAsync(string configurationId)
+        {
+            return await configurationContext.PushChannelConfigurations.Include(v => v.Options).Where(v => v.Id == configurationId)
+               .Select(v => new PushEndpoint()
+               {
+                   AuthKey = v.AuthKey,
+                   ChannelType = v.Type,
+                   Endpoint = v.Endpoint,
+                   P256dhKey = v.P256dhKey
+               }).SingleAsync();
+        }
+
+        public async Task<Abstractions.Models.PushChannelConfiguration> GetForOptionsAsync(string userId, IDictionary<string, string> configurationOptions)
+        {
+            var query = configurationContext.PushChannelConfigurations.Include(v => v.Options).Where(v => v.UserId == userId);
+            foreach (var option in configurationOptions)
+            {
+                if (null != option.Value)
+                {
+                    query = query.Where(v => v.Options.Any(d => d.Key == option.Key && d.Value == option.Value));
+                }
+                else
+                {
+                    query = query.Where(v => v.Options.Any(d => d.Key == option.Key));
+                }
+            }
+            return await query.Select(v => new Abstractions.Models.PushChannelConfiguration()
+            {
+                EndpointInfo = v.EndpointInfo,
+                Id = v.Id,
+                Options = new PushChannelOptions(v.Options.ToDictionary(d => d.Key, d => d.Value)),
+                ChannelType = v.Type
+            }).FirstOrDefaultAsync();
         }
     }
 }

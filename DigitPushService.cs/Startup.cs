@@ -34,7 +34,8 @@ namespace DigitPushService
             services.AddPushServer()
                 .AddConfigurationStore(builder =>
                             builder.UseSqlite(connectionString,
-                                sql => sql.MigrationsAssembly(migrationsAssembly)));
+                                sql => sql.MigrationsAssembly(migrationsAssembly)))
+                .AddAzureNotificationHub(v => new AzureNotificationHubConfig() { });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCors(options =>

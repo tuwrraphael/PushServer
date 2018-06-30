@@ -1,4 +1,5 @@
 using PushServer.PushConfiguration.Abstractions.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PushServer.PushConfiguration.Abstractions.Services
@@ -11,5 +12,8 @@ namespace PushServer.PushConfiguration.Abstractions.Services
         Task<bool> DeleteAsync(string userId, string configurationId);
         Task UpdateAsync(string userId, string configurationId, WebPushChannelRegistration options);
         Task UpdateAsync(string userId, string configurationId, AzureNotificationHubPushChannelRegistration options);
+        Task<PushChannelConfiguration> GetAsync(string configurationId);
+        Task<PushEndpoint> GetEndpointAsync(string configurationId);
+        Task<PushChannelConfiguration> GetForOptionsAsync(string userId, IDictionary<string, string> configurationOptions);
     }
 }

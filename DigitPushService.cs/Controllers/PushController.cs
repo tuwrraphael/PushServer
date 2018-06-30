@@ -2,18 +2,18 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PushServer.PushConfiguration.Abstractions.Models;
-using PushServer.PushConfiguration.Abstractions.Services;
+using PushServer.Services;
 
 namespace DigitPushService.Controllers
 {
     [Route("api")]
     public class PushController : ControllerBase
     {
-        private readonly IPushConfigurationStore pushConfigurationService;
+        private readonly IPushConfigurationManager pushConfigurationManager;
 
-        public PushController(IPushConfigurationStore pushConfigurationService)
+        public PushController(IPushConfigurationManager pushConfigurationManager)
         {
-            this.pushConfigurationService = pushConfigurationService;
+            this.pushConfigurationManager = pushConfigurationManager;
         }
 
         [Authorize("User")]
@@ -25,7 +25,7 @@ namespace DigitPushService.Controllers
             {
                 return BadRequest();
             }
-            await pushConfigurationService.RegisterAsync(User.GetId(), registration);
+            await pushConfigurationManager.RegisterAsync(User.GetId(), registration);
             return Ok();
         }
 
@@ -34,7 +34,7 @@ namespace DigitPushService.Controllers
         [Consumes("application/vnd+pushserver.webpush+json")]
         public async Task<IActionResult> Register([FromBody]WebPushChannelRegistration registration)
         {
-            await pushConfigurationService.RegisterAsync(User.GetId(), registration);
+            await pushConfigurationManager.RegisterAsync(User.GetId(), registration);
             return Ok();
         }
 
@@ -42,14 +42,14 @@ namespace DigitPushService.Controllers
         [HttpGet("me/push")]
         public async Task<IActionResult> Get()
         {
-            return Ok(await pushConfigurationService.GetAllAsync(User.GetId()));
+            return Ok(await pushConfigurationManager.GetAllAsync(User.GetId()));
         }
 
         [Authorize("User")]
         [HttpDelete("me/push/{configurationId}")]
         public async Task<IActionResult> Register(string configurationId)
         {
-            var success = await pushConfigurationService.DeleteAsync(User.GetId(), configurationId);
+            var success = await pushConfigurationManager.DeleteAsync(User.GetId(), configurationId);
             if (success)
             {
                 return Ok();
@@ -65,7 +65,7 @@ namespace DigitPushService.Controllers
         [Consumes("application/vnd+pushserver.azurenotificationhub+json")]
         public async Task<IActionResult> Update([FromQuery]string configurationid, [FromBody]AzureNotificationHubPushChannelRegistration registration)
         {
-            await pushConfigurationService.UpdateAsync(User.GetId(), configurationid, registration);
+            await pushConfigurationManager.UpdateAsync(User.GetId(), configurationid, registration);
             return Ok();
         }
 
@@ -74,7 +74,7 @@ namespace DigitPushService.Controllers
         [Consumes("application/vnd+pushserver.webpush+json")]
         public async Task<IActionResult> Update([FromQuery]string configurationid, [FromBody]WebPushChannelRegistration registration)
         {
-            await pushConfigurationService.UpdateAsync(User.GetId(), configurationid, registration);
+            await pushConfigurationManager.UpdateAsync(User.GetId(), configurationid, registration);
             return Ok();
         }
     }
