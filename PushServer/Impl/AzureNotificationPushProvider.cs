@@ -33,7 +33,14 @@ namespace PushServer.Impl
         {
             NotificationHubClient client = NotificationHubClient.CreateClientFromConnectionString(options.HubConnection, options.HubName);
             var reg = await client.GetRegistrationAsync<RegistrationDescription>(endpoint.Endpoint);
-            reg.Tags = new HashSet<string>() { config.Id };
+            if (reg.Tags == null)
+            {
+                reg.Tags = new HashSet<string>() { config.Id };
+            }
+            else
+            {
+                reg.Tags.Add(config.Id);
+            }
             await client.UpdateRegistrationAsync(reg);
         }
 
