@@ -1,7 +1,7 @@
-﻿using PushServer.Models;
+using PushServer.Models;
 using System.Threading.Tasks;
 
-namespace PushServer.Services
+namespace PushServer.Abstractions.Services
 {
     public interface IPushProvider
     {

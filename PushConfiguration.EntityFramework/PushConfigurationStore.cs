@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PushServer.PushConfiguration.Abstractions.Models;
 using PushServer.PushConfiguration.Abstractions.Services;
 using PushServer.PushConfiguration.EntityFramework.Entities;
@@ -37,12 +37,12 @@ namespace PushServer.PushConfiguration.EntityFramework
                 {
                     EndpointInfo = v.EndpointInfo,
                     Id = v.Id,
-                    Options = new PushChannelOptions(v.Options.ToDictionary(d => d.Key, d => d.Value)),
+                    Options = new PushChannelOptions(v.Options.Where(d => !d.EndpointOption).ToDictionary(d => d.Key, d => d.Value)),
                     ChannelType = v.Type
                 }).ToArrayAsync();
         }
 
-        private async Task CreateOptionsAsync(PushChannelOptions options, string channelId)
+        private async Task CreateOptionsAsync(IDictionary<string, string> options, string channelId, bool endpointOptions)
         {
             if (null == options)
             {
@@ -55,49 +55,27 @@ namespace PushServer.PushConfiguration.EntityFramework
                     ID = Guid.NewGuid().ToString(),
                     Key = pair.Key,
                     Value = pair.Value,
-                    PushChannelConfigurationID = channelId
+                    PushChannelConfigurationID = channelId,
+                    EndpointOption = endpointOptions
                 };
                 await configurationContext.PushChannelOptions.AddAsync(option);
             }
         }
 
-        public async Task<Abstractions.Models.PushChannelConfiguration> RegisterAsync(string userId, AzureNotificationHubPushChannelRegistration registration)
+        public async Task<Abstractions.Models.PushChannelConfiguration> RegisterAsync(string userId, PushChannelRegistration registration)
         {
             var channel = new Entities.PushChannelConfiguration()
             {
                 Id = Guid.NewGuid().ToString(),
                 UserId = userId,
                 Endpoint = registration.Endpoint,
-                EndpointInfo = registration.DeviceInfo,
-                Type = PushChannelType.AzureNotificationHub
-            };
-            await configurationContext.PushChannelConfigurations.AddAsync(channel);
-            await CreateOptionsAsync(registration.Options, channel.Id);
-            await configurationContext.SaveChangesAsync();
-            return new Abstractions.Models.PushChannelConfiguration()
-            {
-                EndpointInfo = channel.EndpointInfo,
-                Id = channel.Id,
-                ChannelType = channel.Type,
-                Options = registration.Options
-            };
-        }
-
-        public async Task<Abstractions.Models.PushChannelConfiguration> RegisterAsync(string userId, WebPushChannelRegistration registration)
-        {
-            var channel = new Entities.PushChannelConfiguration()
-            {
-                Id = Guid.NewGuid().ToString(),
-                UserId = userId,
-                Endpoint = registration.Endpoint,
-                EndpointInfo = registration.BrowserInfo,
-                Type = PushChannelType.Web,
-                AuthKey = registration.AuthKey,
+                EndpointInfo = registration.EndpointInfo,
+                Type = registration.PushChannelType,
                 ExpirationTime = registration.ExpirationTime,
-                P256dhKey = registration.P256dhKey,
             };
             await configurationContext.PushChannelConfigurations.AddAsync(channel);
-            await CreateOptionsAsync(registration.Options, channel.Id);
+            await CreateOptionsAsync(registration.Options, channel.Id, false);
+            await CreateOptionsAsync(registration.EndpointOptions, channel.Id, true);
             await configurationContext.SaveChangesAsync();
             return new Abstractions.Models.PushChannelConfiguration()
             {
@@ -108,7 +86,7 @@ namespace PushServer.PushConfiguration.EntityFramework
             };
         }
 
-        public async Task UpdateAsync(string userId, string configurationId, WebPushChannelRegistration registration)
+        public async Task UpdateAsync(string userId, string configurationId, PushChannelRegistration registration)
         {
             var channel = configurationContext.PushChannelConfigurations.Include(v => v.Options).Where(v => v.UserId == userId && v.Id == configurationId).Single();
             foreach (var opt in channel.Options)
@@ -117,23 +95,10 @@ namespace PushServer.PushConfiguration.EntityFramework
             }
             channel.Endpoint = registration.Endpoint;
             channel.ExpirationTime = registration.ExpirationTime;
-            channel.P256dhKey = registration.P256dhKey;
-            channel.AuthKey = registration.AuthKey;
-            channel.EndpointInfo = registration.BrowserInfo;
-            await CreateOptionsAsync(registration.Options, channel.Id);
-            await configurationContext.SaveChangesAsync();
-        }
-
-        public async Task UpdateAsync(string userId, string configurationId, AzureNotificationHubPushChannelRegistration registration)
-        {
-            var channel = configurationContext.PushChannelConfigurations.Include(v => v.Options).Where(v => v.UserId == userId && v.Id == configurationId).Single();
-            foreach (var opt in channel.Options)
-            {
-                configurationContext.PushChannelOptions.Remove(opt);
-            }
-            channel.Endpoint = registration.Endpoint;
-            channel.EndpointInfo = registration.DeviceInfo;
-            await CreateOptionsAsync(registration.Options, channel.Id);
+            channel.EndpointInfo = registration.EndpointInfo;
+            channel.Type = registration.PushChannelType;
+            await CreateOptionsAsync(registration.Options, channel.Id, false);
+            await CreateOptionsAsync(registration.EndpointOptions, channel.Id, true);
             await configurationContext.SaveChangesAsync();
         }
 
@@ -144,7 +109,7 @@ namespace PushServer.PushConfiguration.EntityFramework
                {
                    EndpointInfo = v.EndpointInfo,
                    Id = v.Id,
-                   Options = new PushChannelOptions(v.Options.ToDictionary(d => d.Key, d => d.Value)),
+                   Options = new PushChannelOptions(v.Options.Where(d => !d.EndpointOption).ToDictionary(d => d.Key, d => d.Value)),
                    ChannelType = v.Type
                }).SingleAsync();
         }
@@ -154,10 +119,8 @@ namespace PushServer.PushConfiguration.EntityFramework
             return await configurationContext.PushChannelConfigurations.Include(v => v.Options).Where(v => v.Id == configurationId)
                .Select(v => new PushEndpoint()
                {
-                   AuthKey = v.AuthKey,
-                   ChannelType = v.Type,
                    Endpoint = v.Endpoint,
-                   P256dhKey = v.P256dhKey
+                   EndpointOptions = v.Options.Where(d => d.EndpointOption).ToDictionary(d => d.Key, d => d.Value)
                }).SingleAsync();
         }
 
@@ -168,18 +131,18 @@ namespace PushServer.PushConfiguration.EntityFramework
             {
                 if (null != option.Value)
                 {
-                    query = query.Where(v => v.Options.Any(d => d.Key == option.Key && d.Value == option.Value));
+                    query = query.Where(v => v.Options.Any(d => !d.EndpointOption && d.Key == option.Key && d.Value == option.Value));
                 }
                 else
                 {
-                    query = query.Where(v => v.Options.Any(d => d.Key == option.Key));
+                    query = query.Where(v => v.Options.Any(d => !d.EndpointOption && d.Key == option.Key));
                 }
             }
             return await query.Select(v => new Abstractions.Models.PushChannelConfiguration()
             {
                 EndpointInfo = v.EndpointInfo,
                 Id = v.Id,
-                Options = new PushChannelOptions(v.Options.ToDictionary(d => d.Key, d => d.Value)),
+                Options = new PushChannelOptions(v.Options.Where(d => !d.EndpointOption).ToDictionary(d => d.Key, d => d.Value)),
                 ChannelType = v.Type
             }).FirstOrDefaultAsync();
         }

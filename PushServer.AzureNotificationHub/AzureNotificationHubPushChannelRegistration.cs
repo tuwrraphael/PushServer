@@ -1,6 +1,7 @@
+using PushServer.PushConfiguration.Abstractions.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace PushServer.PushConfiguration.Abstractions.Models
+namespace PushServer.AzureNotificationHub
 {
     public class AzureNotificationHubPushChannelRegistration
     {

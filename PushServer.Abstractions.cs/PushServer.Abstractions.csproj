@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PushConfiguration.Abstractions\PushServer.PushConfiguration.Abstractions.csproj" />
-    <ProjectReference Include="..\PushServer.Abstractions.cs\PushServer.Abstractions.csproj" />
     <ProjectReference Include="..\PushServer.Models\PushServer.Models.csproj" />
   </ItemGroup>
 

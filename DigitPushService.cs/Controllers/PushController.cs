@@ -1,8 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PushServer.PushConfiguration.Abstractions.Models;
-using PushServer.Services;
+using PushServer.Abstractions.Services;
+using PushServer.AzureNotificationHub;
+using PushServer.WebPush;
 
 namespace DigitPushService.Controllers
 {
@@ -34,6 +35,10 @@ namespace DigitPushService.Controllers
         [Consumes("application/vnd+pushserver.webpush+json")]
         public async Task<IActionResult> Register([FromBody]WebPushChannelRegistration registration)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
             await pushConfigurationManager.RegisterAsync(User.GetId(), registration);
             return Ok();
         }
@@ -47,7 +52,7 @@ namespace DigitPushService.Controllers
 
         [Authorize("User")]
         [HttpDelete("me/push/{configurationId}")]
-        public async Task<IActionResult> Register(string configurationId)
+        public async Task<IActionResult> Delete(string configurationId)
         {
             var success = await pushConfigurationManager.DeleteAsync(User.GetId(), configurationId);
             if (success)
@@ -65,6 +70,10 @@ namespace DigitPushService.Controllers
         [Consumes("application/vnd+pushserver.azurenotificationhub+json")]
         public async Task<IActionResult> Update([FromQuery]string configurationid, [FromBody]AzureNotificationHubPushChannelRegistration registration)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
             await pushConfigurationManager.UpdateAsync(User.GetId(), configurationid, registration);
             return Ok();
         }
@@ -74,6 +83,10 @@ namespace DigitPushService.Controllers
         [Consumes("application/vnd+pushserver.webpush+json")]
         public async Task<IActionResult> Update([FromQuery]string configurationid, [FromBody]WebPushChannelRegistration registration)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
             await pushConfigurationManager.UpdateAsync(User.GetId(), configurationid, registration);
             return Ok();
         }

@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PushConfiguration.EntityFramework\PushServer.PushConfiguration.EntityFramework.csproj" />
+    <ProjectReference Include="..\PushServer.AzureNotificationHub\PushServer.AzureNotificationHub.csproj" />
+    <ProjectReference Include="..\PushServer.WebPush\PushServer.WebPush.csproj" />
     <ProjectReference Include="..\PushServer\PushServer.csproj" />
   </ItemGroup>
 

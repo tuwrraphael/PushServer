@@ -1,9 +1,9 @@
-﻿using Microsoft.Azure.NotificationHubs;
+using Microsoft.Azure.NotificationHubs;
 using Microsoft.Extensions.Options;
-using PushServer.Configuration;
+using PushServer.Abstractions;
+using PushServer.Abstractions.Services;
 using PushServer.Models;
 using PushServer.PushConfiguration.Abstractions.Models;
-using PushServer.Services;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace PushServer.Impl
+namespace PushServer.AzureNotificationHub
 {
     public class AzureNotificationPushProvider : IPushProvider
     {
@@ -31,17 +31,17 @@ namespace PushServer.Impl
 
         public async Task InitializeAsync()
         {
-            NotificationHubClient client = NotificationHubClient.CreateClientFromConnectionString(options.HubConnection, options.HubName);
-            var reg = await client.GetRegistrationAsync<RegistrationDescription>(endpoint.Endpoint);
-            if (reg.Tags == null)
-            {
-                reg.Tags = new HashSet<string>() { config.Id };
-            }
-            else
-            {
-                reg.Tags.Add(config.Id);
-            }
-            await client.UpdateRegistrationAsync(reg);
+            //NotificationHubClient client = NotificationHubClient.CreateClientFromConnectionString(options.HubConnection, options.HubName);
+            //var reg = await client.GetRegistrationAsync<RegistrationDescription>(endpoint.Endpoint);
+            //if (reg.Tags == null)
+            //{
+            //    reg.Tags = new HashSet<string>() { config.Id };
+            //}
+            //else
+            //{
+            //    reg.Tags.Add(config.Id);
+            //}
+            //await client.UpdateRegistrationAsync(reg);
         }
 
         private static string GetSASToken(string resourceUri, string keyName, string key)

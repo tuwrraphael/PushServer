@@ -11,7 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigitPushService", "DigitPu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PushServer", "PushServer\PushServer.csproj", "{6DE09154-2973-4A48-959D-CFC176861D3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushServer.Models", "PushServer.Models\PushServer.Models.csproj", "{16AD96AB-C439-4529-A35F-DD573F9BBC15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PushServer.Models", "PushServer.Models\PushServer.Models.csproj", "{16AD96AB-C439-4529-A35F-DD573F9BBC15}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PushServer.AzureNotificationHub", "PushServer.AzureNotificationHub\PushServer.AzureNotificationHub.csproj", "{EBE77089-1116-44C2-9071-B00DA3BB62DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushServer.WebPush", "PushServer.WebPush\PushServer.WebPush.csproj", "{F29AE6D1-BBF2-4610-B35E-4F47AFDC2A09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushServer.Abstractions", "PushServer.Abstractions.cs\PushServer.Abstractions.csproj", "{B6D3B822-C264-489A-BE4D-85417E93B9A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +45,18 @@ Global
 		{16AD96AB-C439-4529-A35F-DD573F9BBC15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16AD96AB-C439-4529-A35F-DD573F9BBC15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16AD96AB-C439-4529-A35F-DD573F9BBC15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBE77089-1116-44C2-9071-B00DA3BB62DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBE77089-1116-44C2-9071-B00DA3BB62DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBE77089-1116-44C2-9071-B00DA3BB62DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBE77089-1116-44C2-9071-B00DA3BB62DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F29AE6D1-BBF2-4610-B35E-4F47AFDC2A09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F29AE6D1-BBF2-4610-B35E-4F47AFDC2A09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F29AE6D1-BBF2-4610-B35E-4F47AFDC2A09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F29AE6D1-BBF2-4610-B35E-4F47AFDC2A09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6D3B822-C264-489A-BE4D-85417E93B9A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6D3B822-C264-489A-BE4D-85417E93B9A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6D3B822-C264-489A-BE4D-85417E93B9A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6D3B822-C264-489A-BE4D-85417E93B9A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -21,17 +21,13 @@ namespace DigitPushService.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AuthKey");
-
                     b.Property<string>("Endpoint");
 
                     b.Property<string>("EndpointInfo");
 
                     b.Property<DateTime?>("ExpirationTime");
 
-                    b.Property<string>("P256dhKey");
-
-                    b.Property<int>("Type");
+                    b.Property<string>("Type");
 
                     b.Property<string>("UserId");
 
@@ -44,6 +40,8 @@ namespace DigitPushService.Migrations
                 {
                     b.Property<string>("ID")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("EndpointOption");
 
                     b.Property<string>("Key");
 

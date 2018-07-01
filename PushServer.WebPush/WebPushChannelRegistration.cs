@@ -1,7 +1,8 @@
+using PushServer.PushConfiguration.Abstractions.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace PushServer.PushConfiguration.Abstractions.Models
+namespace PushServer.WebPush
 {
     public class WebPushChannelRegistration
     {

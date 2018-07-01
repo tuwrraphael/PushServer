@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Runtime.Serialization;
 
-namespace PushServer
+namespace PushServer.Abstractions
 {
     [Serializable]
     public class PushException : Exception

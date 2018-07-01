@@ -1,11 +1,10 @@
-﻿using Microsoft.Extensions.Options;
-using PushServer.Configuration;
+using Microsoft.Extensions.Options;
+using PushServer.Abstractions.Services;
 using PushServer.PushConfiguration.Abstractions.Models;
 using PushServer.PushConfiguration.Abstractions.Services;
-using PushServer.Services;
 using System.Threading.Tasks;
 
-namespace PushServer.Impl
+namespace PushServer.AzureNotificationHub
 {
     internal class AzureNotificationHubPushProviderFactory : IPushProviderFactory
     {
@@ -18,7 +17,7 @@ namespace PushServer.Impl
             this.pushConfigurationStore = pushConfigurationStore;
         }
 
-        public PushChannelType Type => PushChannelType.AzureNotificationHub;
+        public string PushChannelType => AzureNotificationHubConstants.ChannelType;
 
         public async Task<IPushProvider> CreateProvider(PushChannelConfiguration config)
         {

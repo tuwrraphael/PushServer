@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using PushServer.PushConfiguration.Abstractions.Models;
+using PushServer.Abstractions.Services;
 
 namespace PushServer.Impl
 {
@@ -22,7 +23,7 @@ namespace PushServer.Impl
 
         private async Task<IPushProvider> CreateProvider(PushChannelConfiguration config)
         {
-            var providerFactory = pushProviderFactories.SingleOrDefault(v => v.Type == config.ChannelType);
+            var providerFactory = pushProviderFactories.SingleOrDefault(v => v.PushChannelType == config.ChannelType);
             if (null == providerFactory)
             {
                 throw new NotSupportedException($"Provider for push type {config.ChannelType} was not configured.");

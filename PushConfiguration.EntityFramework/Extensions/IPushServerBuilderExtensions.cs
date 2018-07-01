@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using PushServer.Configuration;
+using PushServer.Abstractions.Configuration;
 using PushServer.PushConfiguration.Abstractions.Services;
 using System;
 

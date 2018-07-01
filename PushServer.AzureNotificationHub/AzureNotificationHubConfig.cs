@@ -1,4 +1,4 @@
-﻿namespace PushServer.Configuration
+namespace PushServer.AzureNotificationHub
 {
     public class AzureNotificationHubConfig
     {

@@ -1,4 +1,5 @@
-﻿using PushServer.PushConfiguration.Abstractions.Models;
+﻿using PushServer.Abstractions.Services;
+using PushServer.PushConfiguration.Abstractions.Models;
 using PushServer.PushConfiguration.Abstractions.Services;
 using PushServer.Services;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace PushServer.Impl
             return pushConfigurationStore.GetAllAsync(userId);
         }
 
-        public async Task<PushChannelConfiguration> RegisterAsync(string userId, AzureNotificationHubPushChannelRegistration registration)
+        public async Task<PushChannelConfiguration> RegisterAsync(string userId, PushChannelRegistration registration)
         {
             var config = await pushConfigurationStore.RegisterAsync(userId, registration);
             var provider = await pushProviderFactory.CreateProvider(config);
@@ -34,17 +35,7 @@ namespace PushServer.Impl
             return config;
         }
 
-        public Task<PushChannelConfiguration> RegisterAsync(string userId, WebPushChannelRegistration registration)
-        {
-            return pushConfigurationStore.RegisterAsync(userId, registration);
-        }
-
-        public Task UpdateAsync(string userId, string configurationId, WebPushChannelRegistration registration)
-        {
-            return pushConfigurationStore.UpdateAsync(userId, configurationId, registration);
-        }
-
-        public Task UpdateAsync(string userId, string configurationId, AzureNotificationHubPushChannelRegistration registration)
+        public Task UpdateAsync(string userId, string configurationId, PushChannelRegistration registration)
         {
             return pushConfigurationStore.UpdateAsync(userId, configurationId, registration);
         }

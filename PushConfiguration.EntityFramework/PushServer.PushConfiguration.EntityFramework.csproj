@@ -9,12 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Mappers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PushConfiguration.Abstractions\PushServer.PushConfiguration.Abstractions.csproj" />
-    <ProjectReference Include="..\PushServer\PushServer.csproj" />
+    <ProjectReference Include="..\PushServer.Abstractions.cs\PushServer.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

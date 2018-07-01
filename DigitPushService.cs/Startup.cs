@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PushServer.Configuration;
 using PushServer.PushConfiguration.EntityFramework.Extensions;
+using PushServer.AzureNotificationHub;
 
 namespace DigitPushService
 {

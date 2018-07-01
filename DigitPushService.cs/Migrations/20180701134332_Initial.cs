@@ -15,10 +15,8 @@ namespace DigitPushService.Migrations
                     Id = table.Column<string>(nullable: false),
                     EndpointInfo = table.Column<string>(nullable: true),
                     Endpoint = table.Column<string>(nullable: true),
-                    Type = table.Column<int>(nullable: false),
-                    AuthKey = table.Column<string>(nullable: true),
-                    ExpirationTime = table.Column<DateTime>(nullable: true),
-                    P256dhKey = table.Column<string>(nullable: true)
+                    Type = table.Column<string>(nullable: true),
+                    ExpirationTime = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -32,7 +30,8 @@ namespace DigitPushService.Migrations
                     ID = table.Column<string>(nullable: false),
                     PushChannelConfigurationID = table.Column<string>(nullable: true),
                     Key = table.Column<string>(nullable: true),
-                    Value = table.Column<string>(nullable: true)
+                    Value = table.Column<string>(nullable: true),
+                    EndpointOption = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

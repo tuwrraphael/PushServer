@@ -1,11 +1,11 @@
-﻿using PushServer.PushConfiguration.Abstractions.Models;
+using PushServer.PushConfiguration.Abstractions.Models;
 using System.Threading.Tasks;
 
-namespace PushServer.Services
+namespace PushServer.Abstractions.Services
 {
     public interface IPushProviderFactory
     {
-        PushChannelType Type { get; }
+        string PushChannelType { get; }
         Task<IPushProvider> CreateProvider(PushChannelConfiguration config);
     }
 }
