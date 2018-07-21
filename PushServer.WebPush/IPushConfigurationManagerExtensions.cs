@@ -14,8 +14,8 @@ namespace PushServer.WebPush
                 Endpoint = registration.Endpoint,
                 EndpointInfo = registration.BrowserInfo,
                 EndpointOptions = new Dictionary<string, string>() {
-                    { "P256dhKey", registration.P256dhKey },
-                    { "AuthKey", registration.AuthKey },
+                    { "P256dhKey", registration.Keys.P256dh },
+                    { "AuthKey", registration.Keys.Auth },
                 },
                 ExpirationTime = registration.ExpirationTime,
                 Options = registration.Options,
