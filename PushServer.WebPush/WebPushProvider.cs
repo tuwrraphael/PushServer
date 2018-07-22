@@ -1,32 +1,38 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
+using PushServer.Abstractions;
 using PushServer.Abstractions.Services;
 using PushServer.Models;
-using PushServer.PushConfiguration.Abstractions.Models;
+using PushServer.WebPushApiClient;
 
 namespace PushServer.WebPush
 {
-    internal class WebPushProvider : IPushProvider
+    public class WebPushProvider : IPushProvider
     {
-        private IOptions<WebPushConfig> options;
-        private PushChannelConfiguration config;
-        private PushEndpoint pushEndpoint;
+        private PushSubscription pushSubscription;
+        private readonly IWebPushClient webPushClient;
 
-        public WebPushProvider(IOptions<WebPushConfig> options, PushChannelConfiguration config, PushEndpoint pushEndpoint)
+        public WebPushProvider(PushSubscription pushSubscription,
+            IWebPushClient webPushClient)
         {
-            this.options = options;
-            this.config = config;
-            this.pushEndpoint = pushEndpoint;
+            this.pushSubscription = pushSubscription;
+            this.webPushClient = webPushClient;
         }
 
-        public Task InitializeAsync()
-        {
-            throw new System.NotImplementedException();
-        }
+        public Task InitializeAsync() { return Task.CompletedTask; }
 
-        public Task PushAsync(string payload, PushOptions options)
+
+        public async Task PushAsync(string payload, PushOptions options)
         {
-            throw new System.NotImplementedException();
+            var webPushOptions = WebPushOptions.Defaults;
+            if (options.TimeToLive.HasValue)
+            {
+                webPushOptions.TimeToLive = options.TimeToLive.Value;
+            }
+            var res = await webPushClient.SendNotificationAsync(pushSubscription, webPushOptions);
+            if (!res.IsSuccessStatusCode)
+            {
+                throw new PushException($"Attempted delivery resulted in {res.StatusCode}.");
+            }
         }
     }
 }

@@ -31,17 +31,17 @@ namespace PushServer.AzureNotificationHub
 
         public async Task InitializeAsync()
         {
-            //NotificationHubClient client = NotificationHubClient.CreateClientFromConnectionString(options.HubConnection, options.HubName);
-            //var reg = await client.GetRegistrationAsync<RegistrationDescription>(endpoint.Endpoint);
-            //if (reg.Tags == null)
-            //{
-            //    reg.Tags = new HashSet<string>() { config.Id };
-            //}
-            //else
-            //{
-            //    reg.Tags.Add(config.Id);
-            //}
-            //await client.UpdateRegistrationAsync(reg);
+            NotificationHubClient client = NotificationHubClient.CreateClientFromConnectionString(options.HubConnection, options.HubName);
+            var reg = await client.GetRegistrationAsync<RegistrationDescription>(endpoint.Endpoint);
+            if (reg.Tags == null)
+            {
+                reg.Tags = new HashSet<string>() { config.Id };
+            }
+            else
+            {
+                reg.Tags.Add(config.Id);
+            }
+            await client.UpdateRegistrationAsync(reg);
         }
 
         private static string GetSASToken(string resourceUri, string keyName, string key)

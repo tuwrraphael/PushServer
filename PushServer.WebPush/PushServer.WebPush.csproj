@@ -13,6 +13,7 @@
     <ProjectReference Include="..\PushConfiguration.Abstractions\PushServer.PushConfiguration.Abstractions.csproj" />
     <ProjectReference Include="..\PushServer.Abstractions.cs\PushServer.Abstractions.csproj" />
     <ProjectReference Include="..\PushServer.Models\PushServer.Models.csproj" />
+    <ProjectReference Include="..\PushServer.WebPushApiClient\PushServer.WebPushApiClient.csproj" />
   </ItemGroup>
 
   <ItemGroup>

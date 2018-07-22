@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using PushServer.Configuration;
 using PushServer.PushConfiguration.EntityFramework.Extensions;
 using PushServer.AzureNotificationHub;
+using PushServer.WebPush;
+using PushServer.WebPushApiClient;
 
 namespace DigitPushService
 {
@@ -32,11 +34,21 @@ namespace DigitPushService
             var connectionString = $"Data Source={HostingEnvironment.WebRootPath}\\App_Data\\pushservice.db";
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
+
+
             services.AddPushServer()
                 .AddConfigurationStore(builder =>
                             builder.UseSqlite(connectionString,
                                 sql => sql.MigrationsAssembly(migrationsAssembly)))
-                .AddAzureNotificationHub(v => new AzureNotificationHubConfig() { });
+                .AddAzureNotificationHub(v => new AzureNotificationHubConfig() { })
+                .AddWebPush(v =>
+                {
+                    v.Issuer = "DigitPushService";
+                    v.PrivateKey = Configuration["VapidPrivateKey"];
+                    v.PublicKey = Configuration["VapidPublicKey"];
+                    v.Subject = "mailto:rh.p@kesal.at";
+                });
+            services.AddOptions();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCors(options =>

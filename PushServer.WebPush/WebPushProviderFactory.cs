@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
+﻿using System;
+using System.Threading.Tasks;
 using PushServer.Abstractions.Services;
 using PushServer.PushConfiguration.Abstractions.Models;
 using PushServer.PushConfiguration.Abstractions.Services;
+using PushServer.WebPushApiClient;
 
 namespace PushServer.WebPush
 {
@@ -10,18 +11,25 @@ namespace PushServer.WebPush
     {
         public string PushChannelType => WebPushConstants.ChannelType;
 
-        private readonly IOptions<WebPushConfig> options;
         private readonly IPushConfigurationStore pushConfigurationStore;
+        private readonly IWebPushClient webPushClient;
 
-        public WebPushProviderFactory(IOptions<WebPushConfig> options, IPushConfigurationStore pushConfigurationStore)
+        public WebPushProviderFactory(IPushConfigurationStore pushConfigurationStore, IWebPushClient webPushClient)
         {
-            this.options = options;
             this.pushConfigurationStore = pushConfigurationStore;
+            this.webPushClient = webPushClient;
         }
-       
+
         public async Task<IPushProvider> CreateProvider(PushChannelConfiguration config)
         {
-            return new WebPushProvider(options, config, await pushConfigurationStore.GetEndpointAsync(config.Id));
+            var endpoint = await pushConfigurationStore.GetEndpointAsync(config.Id);
+            var subscription = new PushSubscription()
+            {
+                Auth = endpoint.EndpointOptions["AuthKey"],
+                Endpoint = new Uri(endpoint.Endpoint),
+                P256dh = endpoint.EndpointOptions["P256dhKey"]
+            };
+            return new WebPushProvider(subscription, webPushClient);
         }
     }
 }

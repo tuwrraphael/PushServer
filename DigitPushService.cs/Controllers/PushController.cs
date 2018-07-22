@@ -1,9 +1,12 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using PushServer.Abstractions.Services;
 using PushServer.AzureNotificationHub;
+using PushServer.Services;
 using PushServer.WebPush;
+using PushServer.WebPushApiClient;
 
 namespace DigitPushService.Controllers
 {
@@ -11,10 +14,22 @@ namespace DigitPushService.Controllers
     public class PushController : ControllerBase
     {
         private readonly IPushConfigurationManager pushConfigurationManager;
+        private readonly IPushService pushService;
+        private readonly IOptions<VapidAuthenticationOptions> vapidAuthenticationOptionsAccessor;
 
-        public PushController(IPushConfigurationManager pushConfigurationManager)
+        public PushController(IPushConfigurationManager pushConfigurationManager,
+            IPushService pushService, IOptions<VapidAuthenticationOptions> vapidAuthenticationOptionsAccessor)
         {
             this.pushConfigurationManager = pushConfigurationManager;
+            this.pushService = pushService;
+            this.vapidAuthenticationOptionsAccessor = vapidAuthenticationOptionsAccessor;
+        }
+
+        [HttpGet("stuff")]
+        public async Task<IActionResult> Stuff(string configId)
+        {
+            await pushService.Push(configId, null, new PushServer.Models.PushOptions());
+            return Ok();
         }
 
         [Authorize("User")]

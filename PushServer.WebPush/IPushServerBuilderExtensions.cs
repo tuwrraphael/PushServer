@@ -1,15 +1,19 @@
 using Microsoft.Extensions.DependencyInjection;
 using PushServer.Abstractions.Configuration;
 using PushServer.Abstractions.Services;
+using PushServer.WebPushApiClient;
 using System;
 
 namespace PushServer.WebPush
 {
     public static class IPushServerBuilderExtensions
     {
-        public static IPushServerBuilder AddAzureNotificationHub(this IPushServerBuilder pushServerBuilder, Action<WebPushConfig> configure)
+        public static IPushServerBuilder AddWebPush(this IPushServerBuilder pushServerBuilder, Action<VapidAuthenticationOptions> configure)
         {
             pushServerBuilder.Services.Configure(configure);
+            pushServerBuilder.Services.AddTransient<IVapidAuthenticationProvider, VapidAuthenticationProvider>();
+            pushServerBuilder.Services.AddHttpClient();
+            pushServerBuilder.Services.AddTransient<IWebPushClient, WebPushClient>();
             pushServerBuilder.Services.AddTransient<IPushProviderFactory, WebPushProviderFactory>();
             return pushServerBuilder;
         }
