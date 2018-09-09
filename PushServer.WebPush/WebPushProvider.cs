@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 using PushServer.Abstractions;
 using PushServer.Abstractions.Services;
 using PushServer.Models;
@@ -28,7 +29,15 @@ namespace PushServer.WebPush
             {
                 webPushOptions.TimeToLive = options.TimeToLive.Value;
             }
-            var res = await webPushClient.SendNotificationAsync(pushSubscription, webPushOptions);
+            HttpResponseMessage res;
+            if (null != payload)
+            {
+                res = await webPushClient.SendNotificationAsync(pushSubscription, payload, webPushOptions);
+            }
+            else
+            {
+                res = await webPushClient.SendNotificationAsync(pushSubscription, webPushOptions);
+            }
             if (!res.IsSuccessStatusCode)
             {
                 throw new PushException($"Attempted delivery resulted in {res.StatusCode}.");

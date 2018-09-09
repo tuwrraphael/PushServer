@@ -1,6 +1,5 @@
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Org.BouncyCastle.Asn1.Sec;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -18,30 +17,31 @@ namespace PushServer.WebPushApiClient
             vapidAuthenticationOptions = vapidAuthenticationOptionsAccessor.Value;
         }
 
-
-        private ECDsa TransformPrivateKey(string privateKey)
+        private static string TransformBase64UrlEncoded(string str)
         {
-            var key = Convert.FromBase64String(privateKey);
-            var privKeyInt = new Org.BouncyCastle.Math.BigInteger(+1, key);
-            var parameters = SecNamedCurves.GetByName("secp256r1");
-            var ecPoint = parameters.G.Multiply(privKeyInt);
-            var privKeyX = ecPoint.Normalize().XCoord.ToBigInteger().ToByteArrayUnsigned();
-            var privKeyY = ecPoint.Normalize().YCoord.ToBigInteger().ToByteArrayUnsigned();
+            return $"{str.Replace('-', '+').Replace('_', '/')}{new String('=', (4 - str.Length % 4) % 4)}";
+        }
+
+        private ECDsa GetECDsa(string privateKey, string publicKey)
+        {
+            var privateBytes = Convert.FromBase64String(TransformBase64UrlEncoded(privateKey));
+            Span<byte> publicBytes = Convert.FromBase64String(TransformBase64UrlEncoded(publicKey));
             return ECDsa.Create(new ECParameters
             {
                 Curve = ECCurve.NamedCurves.nistP256,
-                D = privKeyInt.ToByteArrayUnsigned(),
+                D = privateBytes,
                 Q = new ECPoint
                 {
-                    X = privKeyX,
-                    Y = privKeyY
+                    X = publicBytes.Slice(1, 32).ToArray(),
+                    Y = publicBytes.Slice(33).ToArray()
                 }
             });
         }
 
         public Task<string> GetVapidTokenAsync(Uri subscriptionUri)
         {
-            var signingCredentials = new SigningCredentials(new ECDsaSecurityKey(TransformPrivateKey(vapidAuthenticationOptions.PrivateKey)), SecurityAlgorithms.EcdsaSha256);
+            var securityKey = new ECDsaSecurityKey(GetECDsa(vapidAuthenticationOptions.PrivateKey, vapidAuthenticationOptions.PublicKey));
+            var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.EcdsaSha256);
             var claims = new[] {
                     new Claim(ClaimTypes.Name, vapidAuthenticationOptions.Subject)
                 };

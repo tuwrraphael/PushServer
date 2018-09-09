@@ -34,19 +34,17 @@ namespace DigitPushService
             var connectionString = $"Data Source={HostingEnvironment.WebRootPath}\\App_Data\\pushservice.db";
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
-
-
             services.AddPushServer()
                 .AddConfigurationStore(builder =>
                             builder.UseSqlite(connectionString,
                                 sql => sql.MigrationsAssembly(migrationsAssembly)))
-                .AddAzureNotificationHub(v => new AzureNotificationHubConfig() { })
+                .AddAzureNotificationHub(v => { })
                 .AddWebPush(v =>
                 {
                     v.Issuer = "DigitPushService";
                     v.PrivateKey = Configuration["VapidPrivateKey"];
                     v.PublicKey = Configuration["VapidPublicKey"];
-                    v.Subject = "mailto:rh.p@kesal.at";
+                    v.Subject = Configuration["WebPushSubject"];
                 });
             services.AddOptions();
 
