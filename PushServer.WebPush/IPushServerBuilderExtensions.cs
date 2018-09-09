@@ -11,9 +11,8 @@ namespace PushServer.WebPush
         public static IPushServerBuilder AddWebPush(this IPushServerBuilder pushServerBuilder, Action<VapidAuthenticationOptions> configure)
         {
             pushServerBuilder.Services.Configure(configure);
-            pushServerBuilder.Services.AddTransient<IVapidAuthenticationProvider, VapidAuthenticationProvider>();
             pushServerBuilder.Services.AddHttpClient();
-            pushServerBuilder.Services.AddTransient<IWebPushClient, WebPushClient>();
+            pushServerBuilder.Services.AddTransient<IWebPushClient, WebPushClientWrapper>();
             pushServerBuilder.Services.AddTransient<IPushProviderFactory, WebPushProviderFactory>();
             return pushServerBuilder;
         }

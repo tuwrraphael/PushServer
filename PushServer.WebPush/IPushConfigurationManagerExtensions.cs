@@ -17,7 +17,7 @@ namespace PushServer.WebPush
                     { "P256dhKey", registration.Keys.P256dh },
                     { "AuthKey", registration.Keys.Auth },
                 },
-                ExpirationTime = registration.ExpirationTime,
+                ExpirationTime = null, //TODO,
                 Options = registration.Options,
                 PushChannelType = WebPushConstants.ChannelType
             };
