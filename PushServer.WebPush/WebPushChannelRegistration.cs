@@ -7,7 +7,7 @@ namespace PushServer.WebPush
     {
         [Required]
         public string Endpoint { get; set; }
-        public long ExpirationTime { get; set; }
+        public long? ExpirationTime { get; set; }
         public string BrowserInfo { get; set; }
         public PushChannelOptions Options { get; set; }
         [Required]

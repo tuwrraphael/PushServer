@@ -41,7 +41,7 @@ namespace DigitPushService.Migrations
                         column: x => x.PushChannelConfigurationID,
                         principalTable: "PushChannelConfigurations",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

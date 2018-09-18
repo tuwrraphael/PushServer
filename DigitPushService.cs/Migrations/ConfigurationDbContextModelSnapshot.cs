@@ -58,9 +58,10 @@ namespace DigitPushService.Migrations
 
             modelBuilder.Entity("PushServer.PushConfiguration.EntityFramework.Entities.PushChannelOption", b =>
                 {
-                    b.HasOne("PushServer.PushConfiguration.EntityFramework.Entities.PushChannelConfiguration")
+                    b.HasOne("PushServer.PushConfiguration.EntityFramework.Entities.PushChannelConfiguration", "PushChannelConfiguration")
                         .WithMany("Options")
-                        .HasForeignKey("PushChannelConfigurationID");
+                        .HasForeignKey("PushChannelConfigurationID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

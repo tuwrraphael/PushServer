@@ -9,7 +9,7 @@ using PushServer.PushConfiguration.EntityFramework;
 namespace DigitPushService.Migrations
 {
     [DbContext(typeof(ConfigurationDbContext))]
-    [Migration("20180701134332_Initial")]
+    [Migration("20180916130404_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,9 +60,10 @@ namespace DigitPushService.Migrations
 
             modelBuilder.Entity("PushServer.PushConfiguration.EntityFramework.Entities.PushChannelOption", b =>
                 {
-                    b.HasOne("PushServer.PushConfiguration.EntityFramework.Entities.PushChannelConfiguration")
+                    b.HasOne("PushServer.PushConfiguration.EntityFramework.Entities.PushChannelConfiguration", "PushChannelConfiguration")
                         .WithMany("Options")
-                        .HasForeignKey("PushChannelConfigurationID");
+                        .HasForeignKey("PushChannelConfigurationID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

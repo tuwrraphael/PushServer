@@ -25,7 +25,7 @@ namespace PushServer.WebPush
         public async Task PushAsync(string payload, PushOptions options)
         {
             var webPushOptions = WebPushOptions.Defaults;
-            if (options.TimeToLive.HasValue)
+            if (null != options && options.TimeToLive.HasValue)
             {
                 webPushOptions.TimeToLive = options.TimeToLive.Value;
             }
@@ -40,7 +40,7 @@ namespace PushServer.WebPush
             }
             if (!res.IsSuccessStatusCode)
             {
-                throw new PushException($"Attempted delivery resulted in {res.StatusCode}.");
+                throw new PushException($"Attempted delivery resulted in {res.StatusCode}.", res);
             }
         }
     }

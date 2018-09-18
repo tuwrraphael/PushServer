@@ -21,6 +21,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PushServer.Abstractions", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PushServer.WebPushApiClient", "PushServer.WebPushApiClient\PushServer.WebPushApiClient.csproj", "{88805794-E2E6-46F6-A981-A2F80BEEF34F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitPushService.Client", "DigitPushService.Client\DigitPushService.Client.csproj", "{5B67DB35-59A6-4BC0-B60C-033F45266A28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitPushService.Models", "DigitPushService.Models\DigitPushService.Models.csproj", "{BFDDDB75-EF4F-4D68-9AA8-D2663BC37B34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,14 @@ Global
 		{88805794-E2E6-46F6-A981-A2F80BEEF34F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88805794-E2E6-46F6-A981-A2F80BEEF34F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88805794-E2E6-46F6-A981-A2F80BEEF34F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B67DB35-59A6-4BC0-B60C-033F45266A28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B67DB35-59A6-4BC0-B60C-033F45266A28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B67DB35-59A6-4BC0-B60C-033F45266A28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B67DB35-59A6-4BC0-B60C-033F45266A28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFDDDB75-EF4F-4D68-9AA8-D2663BC37B34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFDDDB75-EF4F-4D68-9AA8-D2663BC37B34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFDDDB75-EF4F-4D68-9AA8-D2663BC37B34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFDDDB75-EF4F-4D68-9AA8-D2663BC37B34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

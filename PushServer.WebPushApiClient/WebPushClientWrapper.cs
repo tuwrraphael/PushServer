@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
-using Microsoft.Extensions.Options;
-using System;
+﻿using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using WebPush;
 
@@ -22,6 +20,7 @@ namespace PushServer.WebPushApiClient
 
         public async Task<HttpResponseMessage> SendNotificationAsync(PushSubscription subscription, WebPushOptions options = null)
         {
+            options = options ?? WebPushOptions.Defaults;
             var client = new WebPushClient();
             var httpClient = httpClientFactory.CreateClient();
             client.SetVapidDetails(vapidAuthenticationOptions.Subject, vapidAuthenticationOptions.PublicKey, vapidAuthenticationOptions.PrivateKey);
@@ -30,12 +29,16 @@ namespace PushServer.WebPushApiClient
                 Auth = subscription.Auth,
                 Endpoint = subscription.Endpoint.ToString(),
                 P256DH = subscription.P256dh
-            }, null);
+            }, null, new Dictionary<string, object>()
+            {
+                { "TTL", (int)options.TimeToLive.TotalSeconds}
+            });
             return await httpClient.SendAsync(request);
         }
 
         public async Task<HttpResponseMessage> SendNotificationAsync(PushSubscription subscription, string payload, WebPushOptions options = null)
         {
+            options = options ?? WebPushOptions.Defaults;
             var client = new WebPushClient();
             var httpClient = httpClientFactory.CreateClient();
             client.SetVapidDetails(vapidAuthenticationOptions.Subject, vapidAuthenticationOptions.PublicKey, vapidAuthenticationOptions.PrivateKey);
@@ -44,7 +47,10 @@ namespace PushServer.WebPushApiClient
                 Auth = subscription.Auth,
                 Endpoint = subscription.Endpoint.ToString(),
                 P256DH = subscription.P256dh
-            }, payload);
+            }, payload, new Dictionary<string, object>()
+            {
+                { "TTL", (int)options.TimeToLive.TotalSeconds}
+            });
             return await httpClient.SendAsync(request);
         }
     }

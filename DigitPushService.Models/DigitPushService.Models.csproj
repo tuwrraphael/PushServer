@@ -6,15 +6,15 @@
     <Version>1.0.0</Version>
     <Authors>tuwrraphael</Authors>
     <PackageProjectUrl>https://tuwrraphael.github.io/PushServer/</PackageProjectUrl>
-    <PackageTags>PushServer Models</PackageTags>
-    <Description>Models for creation of push notifications using the PushServer extension for asp.net core applications</Description>
+    <PackageTags>Digit PushService client</PackageTags>
+    <Description>Models for HttpClient for Digit PushService api</Description>
     <RepositoryUrl>https://github.com/tuwrraphael/PushServer</RepositoryUrl>
     <NeutralLanguage>en</NeutralLanguage>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PushServer.Models\PushServer.Models.csproj" />
+  </ItemGroup>
 
 </Project>

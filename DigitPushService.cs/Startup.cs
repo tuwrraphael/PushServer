@@ -62,7 +62,7 @@ namespace DigitPushService
                 .AddJwtBearer(options =>
                 {
                     options.Authority = Configuration["ServiceIdentityUrl"];
-                    options.Audience = "digit";
+                    options.Audience = "push";
                     options.RequireHttpsMetadata = false;
                 });
 
@@ -71,7 +71,7 @@ namespace DigitPushService
                 options.AddPolicy("User", builder =>
                 {
                     builder.RequireAuthenticatedUser();
-                    builder.RequireClaim("scope", "digit.user");
+                    builder.RequireClaim("scope", "push.user");
                 });
             });
 
@@ -79,7 +79,7 @@ namespace DigitPushService
             {
                 options.AddPolicy("Service", builder =>
                 {
-                    builder.RequireClaim("scope", "digit.service");
+                    builder.RequireClaim("scope", "push.service");
                 });
             });
         }

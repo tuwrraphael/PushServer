@@ -84,7 +84,7 @@ namespace PushServer.AzureNotificationHub
                 "application/octet-stream"));
             if (!res.IsSuccessStatusCode)
             {
-                throw new PushException($"Attempted delivery resulted in {res.StatusCode}.");
+                throw new PushException($"Attempted delivery resulted in {res.StatusCode}.", res);
             }
         }
     }

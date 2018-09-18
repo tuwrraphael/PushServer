@@ -1,5 +1,5 @@
 using System;
-using System.Runtime.Serialization;
+using System.Net.Http;
 
 namespace PushServer.Abstractions
 {
@@ -10,16 +10,11 @@ namespace PushServer.Abstractions
         {
         }
 
-        public PushException(string message) : base(message)
+        public PushException(string message, HttpResponseMessage responseMessage) : base(message)
         {
+            ResponseMessage = responseMessage;
         }
 
-        public PushException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected PushException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
+        public HttpResponseMessage ResponseMessage { get; }
     }
 }
