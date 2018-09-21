@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using PushServer.Models;
 
-namespace PushServer.Services
+namespace PushServer.Abstractions.Services
 {
     public interface IPushService
     {

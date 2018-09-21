@@ -6,26 +6,25 @@
     <Version>1.0.1</Version>
     <Authors>tuwrraphael</Authors>
     <Description>
-      EntityFramework perstistence implementation to store push subscriptions with PushServer framework for ASP.NET Core 2.
+      Abstractions for the PushServer framework for ASP.NET Core 2.
+Commonly used types:
+IPushConfigurationManager
+IPushProvider
     </Description>
     <PackageProjectUrl>https://github.com/tuwrraphael/PushServer/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/tuwrraphael/PushServer/</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>entityframework webpush notifications asp.net core pushserver</PackageTags>
+    <PackageTags>abstractions webpush notifications asp.net core pushserver</PackageTags>
     <PackageIconUrl>https://tuwrraphael.github.io/PushServer/logo.png</PackageIconUrl>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PushConfiguration.Abstractions\PushServer.PushConfiguration.Abstractions.csproj" />
-    <ProjectReference Include="..\PushServer.Abstractions\PushServer.Abstractions.csproj" />
+    <ProjectReference Include="..\PushServer.Models\PushServer.Models.csproj" />
   </ItemGroup>
 
 </Project>

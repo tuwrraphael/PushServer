@@ -3,14 +3,18 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.0</Version>
+    <Version>1.0.2</Version>
     <Authors>tuwrraphael</Authors>
-    <PackageProjectUrl>https://tuwrraphael.github.io/PushServer/</PackageProjectUrl>
-    <PackageTags>PushServer Models</PackageTags>
-    <Description>Models for creation of push notifications using the PushServer extension for asp.net core applications</Description>
-    <RepositoryUrl>https://github.com/tuwrraphael/PushServer</RepositoryUrl>
-    <NeutralLanguage>en</NeutralLanguage>
+    <Description>
+      Models used by the PushServer framework for ASP.NET Core 2.
+Commonly used types:
+PushOptions
+    </Description>
+    <PackageProjectUrl>https://github.com/tuwrraphael/PushServer/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/tuwrraphael/PushServer/</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <PackageTags>models webpush notifications asp.net core pushserver</PackageTags>
+    <PackageIconUrl>https://tuwrraphael.github.io/PushServer/logo.png</PackageIconUrl>
   </PropertyGroup>
 
   <PropertyGroup>

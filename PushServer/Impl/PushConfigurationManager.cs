@@ -1,7 +1,6 @@
 ﻿using PushServer.Abstractions.Services;
 using PushServer.PushConfiguration.Abstractions.Models;
 using PushServer.PushConfiguration.Abstractions.Services;
-using PushServer.Services;
 using System.Threading.Tasks;
 
 namespace PushServer.Impl

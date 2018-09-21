@@ -2,6 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>1.0.1</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>tuwrraphael</Authors>
+    <Description>A push notification framework for ASP.NET Core 2. It extends a web application with the capability to manage push subscriptions and send notifications to users.
+In a modular approach different push providers like Web Push or Azure Notification Hubs can be added. Its extensible design allows to plugin custom push providers for other notification channels.</Description>
+    <PackageProjectUrl>https://github.com/tuwrraphael/PushServer/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/tuwrraphael/PushServer/</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>webpush notifications asp.net core pushserver</PackageTags>
+    <PackageIconUrl>https://tuwrraphael.github.io/PushServer/logo.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,7 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PushConfiguration.Abstractions\PushServer.PushConfiguration.Abstractions.csproj" />
-    <ProjectReference Include="..\PushServer.Abstractions.cs\PushServer.Abstractions.csproj" />
+    <ProjectReference Include="..\PushServer.Abstractions\PushServer.Abstractions.csproj" />
     <ProjectReference Include="..\PushServer.Models\PushServer.Models.csproj" />
   </ItemGroup>
 

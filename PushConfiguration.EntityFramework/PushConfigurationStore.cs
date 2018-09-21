@@ -124,7 +124,7 @@ namespace PushServer.PushConfiguration.EntityFramework
                }).SingleAsync();
         }
 
-        public async Task<Abstractions.Models.PushChannelConfiguration> GetForOptionsAsync(string userId, IDictionary<string, string> configurationOptions)
+        public async Task<Abstractions.Models.PushChannelConfiguration[]> GetForOptionsAsync(string userId, IDictionary<string, string> configurationOptions)
         {
             var query = configurationContext.PushChannelConfigurations.Include(v => v.Options).Where(v => v.UserId == userId);
             foreach (var option in configurationOptions)
@@ -144,7 +144,7 @@ namespace PushServer.PushConfiguration.EntityFramework
                 Id = v.Id,
                 Options = new PushChannelOptions(v.Options.Where(d => !d.EndpointOption).ToDictionary(d => d.Key, d => d.Value)),
                 ChannelType = v.Type
-            }).FirstOrDefaultAsync();
+            }).ToArrayAsync();
         }
     }
 }

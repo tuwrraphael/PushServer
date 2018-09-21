@@ -1,6 +1,5 @@
 ﻿using PushServer.Models;
 using PushServer.PushConfiguration.Abstractions.Services;
-using PushServer.Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -40,13 +39,12 @@ namespace PushServer.Impl
 
         public async Task Push(string userId, IDictionary<string, string> configurationOptions, string payload, PushOptions options)
         {
-            var config = await pushConfigurationStore.GetForOptionsAsync(userId, configurationOptions);
-            if (null == config)
+            var configs = await pushConfigurationStore.GetForOptionsAsync(userId, configurationOptions);
+            if (null == configs || configs.Length == 0)
             {
                 throw new PushConfigurationNotFoundException();
-
             }
-    await (await CreateProvider(config)).PushAsync(payload, options);
+            await Task.WhenAll(configs.Select(async v => await (await CreateProvider(v)).PushAsync(payload, options)));
         }
     }
 }
