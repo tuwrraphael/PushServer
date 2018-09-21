@@ -28,7 +28,7 @@ Supported push providers
 * [Web Push (PushAPI)](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)
 * [Azure Notification Hub](https://docs.microsoft.com/en-us/azure/notification-hubs/)
 ## Extensibility
-TODO
+TODO describe Extensibility
 ## Getting Started
 [Getting Started](https://github.com/tuwrraphael/PushServer/wiki/Getting-Started)
 ## Example Application
