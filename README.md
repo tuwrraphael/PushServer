@@ -30,6 +30,6 @@ Supported push providers
 ## Extensibility
 TODO
 ## Getting Started
-[Getting Started](https://github.com/tuwrraphael/PushServer/wiki/Getting-Startedt)
+[Getting Started](https://github.com/tuwrraphael/PushServer/wiki/Getting-Started)
 ## Example Application
 [DigitPushService](https://github.com/tuwrraphael/DigitPushService)
