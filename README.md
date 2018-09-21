@@ -2,7 +2,7 @@
 A push notification framework for ASP.NET Core 2. It extends a web application with the capability to manage push subscriptions and send notifications to users.
 
 ## Introduction
-The process of sending push notifactions to users is similar, idependently of which push provider is used (Web Push, Android device push notifications, Azure Notification Hub).
+The process of sending push notifactions to users is similar, idependently of which push provider is used (Web Push, Android device push notifications, Azure Notification Hubs, ...).
 
 Registration:
 1. Client application requests push subscription from vendor push server
