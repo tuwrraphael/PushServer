@@ -31,5 +31,5 @@ Supported push providers
 TODO
 ## Getting Started
 TODO
-## Demo
+## Example Application
 https://github.com/tuwrraphael/DigitPushService
