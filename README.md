@@ -18,10 +18,10 @@ The following figure illustrates the process:
 
 The web application therefore needs to receive/store the subscription information, as well as implement the client requesting the notification delivery.
 PushServer is a modular approach for managing push subscriptions and sending notifications in an ASP.NET Core web application.
-Different strategies for persisting the subscriptions, as well as differnt push providers can be configured.
+Different strategies for persisting the subscriptions, as well as different push providers can be configured.
 
 ## Support
-Supported subscription persistance layers:
+Supported subscription persistence layers:
 * [EntityFrameworkCore](https://github.com/aspnet/EntityFrameworkCore)
 
 Supported push providers
