@@ -10,9 +10,18 @@ namespace PushServer.Abstractions
         {
         }
 
+        public PushException(string message) : base(message)
+        {
+        }
+
         public PushException(string message, HttpResponseMessage responseMessage) : base(message)
         {
             ResponseMessage = responseMessage;
+        }
+
+        public PushException(string message, Exception inner) : base(message, inner)
+        {
+
         }
 
         public HttpResponseMessage ResponseMessage { get; }
