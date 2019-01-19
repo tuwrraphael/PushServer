@@ -1,14 +1,12 @@
 using FCM.Net;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using PushServer.Abstractions;
 using PushServer.Abstractions.Services;
 using PushServer.Models;
 using PushServer.PushConfiguration.Abstractions.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -50,7 +48,8 @@ namespace PushServer.Firebase
                     var res = await sender.SendAsync(new Message()
                     {
                         RegistrationIds = new List<string>() { endpoint.Endpoint },
-                        Data = objData ?? payload
+                        Data = objData ?? payload,
+                        Priority = null != opts && opts.Urgency == PushUrgency.High ? Priority.High : Priority.Normal
                     });
                     if (HttpStatusCode.OK != res.StatusCode)
                     {
