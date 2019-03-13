@@ -1,6 +1,10 @@
 # ![logo](/logo.png) PushServer
 A push notification framework for ASP.NET Core 2. It extends a web application with the capability to manage push subscriptions and send notifications to users.
 
+[![Build Status](https://dev.azure.com/raphaelhauk/PushServer/_apis/build/status/tuwrraphael.PushServer?branchName=master)](https://dev.azure.com/raphaelhauk/PushServer/_build/latest?definitionId=4&branchName=master)
+
+[Getting Started](https://github.com/tuwrraphael/PushServer/wiki/Getting-Started)
+
 ## Introduction
 The process of sending push notifactions to users is similar, idependently of which push provider is used (Web Push, Android device push notifications, Azure Notification Hubs, ...).
 
@@ -31,7 +35,5 @@ Supported push providers
 
 ## Extensibility
 TODO describe Extensibility
-## Getting Started
-[Getting Started](https://github.com/tuwrraphael/PushServer/wiki/Getting-Started)
 ## Example Application
 [DigitPushService](https://github.com/tuwrraphael/DigitPushService)
