@@ -27,6 +27,7 @@ Supported subscription persistence layers:
 Supported push providers
 * [Web Push (PushAPI)](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)
 * [Azure Notification Hub](https://docs.microsoft.com/en-us/azure/notification-hubs/)
+* [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging/)
 
 ## Extensibility
 TODO describe Extensibility
