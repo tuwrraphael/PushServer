@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Authors>tuwrraphael</Authors>
     <Description>
       Manage and push to Web Push subscriptions using the PushServer framework for ASP.NET Core 2.
@@ -20,6 +20,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.0" />
+    <PackageReference Include="System.ComponentModel" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,12 +28,6 @@
     <ProjectReference Include="..\PushServer.Abstractions\PushServer.Abstractions.csproj" />
     <ProjectReference Include="..\PushServer.Models\PushServer.Models.csproj" />
     <ProjectReference Include="..\PushServer.WebPushClientAdapter\PushServer.WebPushClientAdapter.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="System.ComponentModel.Annotations">
-      <HintPath>..\..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.1.0\ref\netcoreapp2.1\System.ComponentModel.Annotations.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>
