@@ -38,5 +38,10 @@ namespace PushServer.Impl
         {
             return pushConfigurationStore.UpdateAsync(userId, configurationId, registration);
         }
+
+        public Task UpdateOptionsAsync(string userId, string configurationId, PushChannelOptions options)
+        {
+            return pushConfigurationStore.UpdateOptionsAsync(userId, configurationId, options);
+        }
     }
 }

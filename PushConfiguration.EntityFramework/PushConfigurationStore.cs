@@ -146,5 +146,16 @@ namespace PushServer.PushConfiguration.EntityFramework
                 ChannelType = v.Type
             }).ToArrayAsync();
         }
+
+        public async Task UpdateOptionsAsync(string userId, string configurationId, PushChannelOptions options)
+        {
+            var channel = configurationContext.PushChannelConfigurations.Include(v => v.Options).Where(v => v.UserId == userId && v.Id == configurationId).Single();
+            foreach (var opt in channel.Options)
+            {
+                configurationContext.PushChannelOptions.Remove(opt);
+            }
+            await CreateOptionsAsync(options, channel.Id, false);
+            await configurationContext.SaveChangesAsync();
+        }
     }
 }

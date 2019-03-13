@@ -13,5 +13,6 @@ namespace PushServer.PushConfiguration.Abstractions.Services
         Task<PushChannelConfiguration> GetAsync(string configurationId);
         Task<PushEndpoint> GetEndpointAsync(string configurationId);
         Task<PushChannelConfiguration[]> GetForOptionsAsync(string userId, IDictionary<string, string> configurationOptions);
+        Task UpdateOptionsAsync(string userId, string configurationId, PushChannelOptions options);
     }
 }
