@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Authors>tuwrraphael</Authors>
     <Description>
       Manage and push to Firebase push subscriptions using the PushServer framework for ASP.NET Core 2.
@@ -19,18 +19,13 @@ This plugin extends the PushServer to store Firebase tokens, and send push notif
   <ItemGroup>
     <PackageReference Include="FCM.Net.Standard" Version="1.0.1" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PushConfiguration.Abstractions\PushServer.PushConfiguration.Abstractions.csproj" />
     <ProjectReference Include="..\PushServer.Abstractions\PushServer.Abstractions.csproj" />
     <ProjectReference Include="..\PushServer.Models\PushServer.Models.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="System.ComponentModel.Annotations">
-      <HintPath>..\..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.1.0\ref\netcoreapp2.1\System.ComponentModel.Annotations.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>
