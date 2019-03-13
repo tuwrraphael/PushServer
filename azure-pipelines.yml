@@ -16,13 +16,12 @@ steps:
 - script: dotnet restore
 
 - script: dotnet build --configuration $(buildConfiguration)
-    
+
 - task: DotNetCoreCLI@2
   inputs:
-    command: publish
-    publishWebProjects: True
-    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    zipAfterPublish: True
+    command: test
+    projects: '**/*Test/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
 
 - task: CopyFiles@2
   displayName: 'Copy nuget packages to staging directory'
