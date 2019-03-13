@@ -34,7 +34,20 @@ namespace PushServer.Impl
         public async Task Push(string configurationId, string payload, PushOptions options)
         {
             var config = await pushConfigurationStore.GetAsync(configurationId);
-            await (await CreateProvider(config)).PushAsync(payload, options);
+            try
+            {
+                await (await CreateProvider(config)).PushAsync(payload, options);
+            }
+            catch (Exception e)
+            {
+                throw new PushFailedException(config, e);
+            }
+        }
+
+        private async Task PushWithProvider(PushChannelConfiguration config, string payload, PushOptions options)
+        {
+            var provider = await CreateProvider(config);
+            await provider.PushAsync(payload, options);
         }
 
         public async Task Push(string userId, IDictionary<string, string> configurationOptions, string payload, PushOptions options)
@@ -44,7 +57,25 @@ namespace PushServer.Impl
             {
                 throw new PushConfigurationNotFoundException();
             }
-            await Task.WhenAll(configs.Select(async v => await (await CreateProvider(v)).PushAsync(payload, options)));
+            var tasks = configs.Select(config => new { config, PushTask = PushWithProvider(config, payload, options) });
+            try
+            {
+                await Task.WhenAll(tasks.Select(v => v.PushTask));
+            }
+            catch (Exception)
+            {
+                var succeeded = tasks.Where(v => !v.PushTask.IsFaulted).Select(v => new
+                        PushFailedException.PushResult
+                { Configuration = v.config, Exception = null }).ToArray();
+                var failed = tasks.Where(v => v.PushTask.IsFaulted).Select(v => new
+                        PushFailedException.PushResult
+                { Configuration = v.config, Exception = v.PushTask.Exception.InnerException }).ToArray();
+                if (succeeded.Length > 0)
+                {
+                    throw new PushPartiallyFailedException(succeeded, failed);
+                }
+                throw new PushFailedException(failed);
+            }
         }
     }
 }
