@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <Authors>tuwrraphael</Authors>
     <Description>
       Manage and push to Firebase push subscriptions using the PushServer framework for ASP.NET Core 2.
@@ -17,8 +17,9 @@ This plugin extends the PushServer to store Firebase tokens, and send push notif
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FCM.Net.Standard" Version="1.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="2.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
   </ItemGroup>
 

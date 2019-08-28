@@ -10,18 +10,21 @@ namespace PushServer.Firebase
     {
         private readonly IOptions<FirebaseConfig> options;
         private readonly IPushConfigurationStore pushConfigurationStore;
+        private readonly IFirebaseHttpClient firebaseHttpClient;
 
-        public FirebasePushProviderFactory(IOptions<FirebaseConfig> options, IPushConfigurationStore pushConfigurationStore)
+        public FirebasePushProviderFactory(IOptions<FirebaseConfig> options, IPushConfigurationStore pushConfigurationStore,
+            IFirebaseHttpClient firebaseHttpClient)
         {
             this.options = options;
             this.pushConfigurationStore = pushConfigurationStore;
+            this.firebaseHttpClient = firebaseHttpClient;
         }
 
         public string PushChannelType => FirebaseConstants.ChannelType;
 
         public async Task<IPushProvider> CreateProvider(PushChannelConfiguration config)
         {
-            return new FirebasePushProvider(options, config, await pushConfigurationStore.GetEndpointAsync(config.Id));
+            return new FirebasePushProvider(options, firebaseHttpClient, config, await pushConfigurationStore.GetEndpointAsync(config.Id));
         }
     }
 }

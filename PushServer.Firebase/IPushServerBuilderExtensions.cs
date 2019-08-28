@@ -11,6 +11,10 @@ namespace PushServer.Firebase
         {
             pushServerBuilder.Services.Configure(configure);
             pushServerBuilder.Services.AddTransient<IPushProviderFactory, FirebasePushProviderFactory>();
+            pushServerBuilder.Services.AddHttpClient<IFirebaseHttpClient, FirebaseHttpClient>(cl =>
+            {
+                cl.BaseAddress = new Uri("https://fcm.googleapis.com/");
+            });
             return pushServerBuilder;
         }
     }
