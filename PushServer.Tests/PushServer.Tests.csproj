@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PushServer.Firebase\PushServer.Firebase.csproj" />
     <ProjectReference Include="..\PushServer\PushServer.csproj" />
   </ItemGroup>
 

@@ -8,6 +8,16 @@ using System.Threading.Tasks;
 
 namespace PushServer.Firebase
 {
+    public class FirebasePushRequest
+    {
+        [JsonProperty("data")]
+        public object Data { get; set; }
+        [JsonProperty("to")]
+        public string To { get; set; }
+        [JsonProperty("priority", NullValueHandling = NullValueHandling.Ignore)]
+        public int? Priority { get; set; }
+    }
+
     public class FirebaseHttpClient : IFirebaseHttpClient
     {
         private readonly HttpClient httpClient;
@@ -16,16 +26,6 @@ namespace PushServer.Firebase
         {
             this.httpClient = httpClient;
         }
-
-        private class FirebasePushRequest
-        {
-            public object Data { get; set; }
-            public string To { get; set; }
-
-            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-            public int? Priority { get; set; }
-        }
-
         private class FirebasePushResult
         {
             public int Success { get; set; }
