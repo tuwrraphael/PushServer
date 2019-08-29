@@ -43,7 +43,7 @@ namespace PushServer.Firebase
             {
                 request.Priority = 10;
             }
-            httpClient.DefaultRequestHeaders.Add("Authorization", $"key={serverKey}");
+            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", $"key={serverKey}");
             var res = await httpClient.PostAsync("fcm/send", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
             if (HttpStatusCode.OK != res.StatusCode)
             {
