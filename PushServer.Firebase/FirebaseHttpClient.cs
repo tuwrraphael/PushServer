@@ -17,63 +17,46 @@ namespace PushServer.Firebase
             this.httpClient = httpClient;
         }
 
-        private class FirebasePushRequestAndroidOptions
-        {
-            public string Priority { get; set; }
-        }
-
-        private class FirebasePushRequestWebPushOptions
-        {
-            public FirebasePushRequestWebPushHeaders Headers { get; set; }
-        }
-
-        private class FirebasePushRequestWebPushHeaders
-        {
-            [JsonProperty("Urgency")]
-            public string Urgency { get; set; }
-        }
-
         private class FirebasePushRequest
         {
             public object Data { get; set; }
-            [JsonProperty("registration_ids")]
-            public string[] RegistrationIds { get; set; }
+            public string To { get; set; }
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public int? Priority { get; set; }
-            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-            public FirebasePushRequestAndroidOptions Android { get; set; }
-            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-            public FirebasePushRequestWebPushOptions Webpush { get; set; }
         }
 
-        public async Task Push(string serverKey, string[] registrationIds, object data, PushUrgency? urgency = PushUrgency.Normal)
+        private class FirebasePushResult
+        {
+            public int Success { get; set; }
+            public int Failure { get; set; }
+        }
+
+        public async Task Push(string serverKey, string to, object data, PushUrgency? urgency = PushUrgency.Normal)
         {
             var request = new FirebasePushRequest
             {
-                RegistrationIds = registrationIds,
+                To = to,
                 Data = data
             };
             if (PushUrgency.High == (urgency ?? PushUrgency.Normal))
             {
-                request.Android = new FirebasePushRequestAndroidOptions()
-                {
-                    Priority = "high"
-                };
                 request.Priority = 10;
-                request.Webpush = new FirebasePushRequestWebPushOptions()
-                {
-                    Headers = new FirebasePushRequestWebPushHeaders()
-                    {
-                        Urgency = "high"
-                    }
-                };
             }
             httpClient.DefaultRequestHeaders.Add("Authorization", $"key={serverKey}");
             var res = await httpClient.PostAsync("fcm/send", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
             if (HttpStatusCode.OK != res.StatusCode)
             {
                 throw new PushException($"Delivery resulted in {res.StatusCode}, {await res.Content?.ReadAsStringAsync()}, {res.ReasonPhrase}");
+            }
+            else
+            {
+                string content = await res.Content.ReadAsStringAsync();
+                var r = JsonConvert.DeserializeObject<FirebasePushResult>(content);
+                if (0 != r.Failure)
+                {
+                    throw new PushException($"Delivery failure {content}");
+                }
             }
         }
     }

@@ -41,7 +41,7 @@ namespace PushServer.Firebase
             {
 
             }
-            await firebaseHttpClient.Push(options.ServerKey, new[] { endpoint.Endpoint }, objData ?? payload, opts?.Urgency);
+            await firebaseHttpClient.Push(options.ServerKey, endpoint.Endpoint, objData ?? payload, opts?.Urgency);
         }
     }
 }
