@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Authors>tuwrraphael</Authors>
     <Description>
       Manage and push to Azure Notification Hub push subscriptions using the PushServer framework for ASP.NET Core 2.
@@ -19,7 +19,7 @@ This plugin extends the PushServer to store information of Azure Notification Hu
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.NotificationHubs" Version="3.2.1" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.1" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>

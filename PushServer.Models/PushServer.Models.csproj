@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Authors>tuwrraphael</Authors>
     <Description>
       Models used by the PushServer framework for ASP.NET Core 2.
@@ -15,10 +15,6 @@ PushOptions
     <RepositoryType>git</RepositoryType>
     <PackageTags>models webpush notifications asp.net core pushserver</PackageTags>
     <PackageIconUrl>https://tuwrraphael.github.io/PushServer/logo.png</PackageIconUrl>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
 </Project>
