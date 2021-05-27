@@ -116,12 +116,19 @@ namespace PushServer.PushConfiguration.EntityFramework
 
         public async Task<PushEndpoint> GetEndpointAsync(string configurationId)
         {
-            return await configurationContext.PushChannelConfigurations.Include(v => v.Options).Where(v => v.Id == configurationId)
-               .Select(v => new PushEndpoint()
-               {
-                   Endpoint = v.Endpoint,
-                   EndpointOptions = v.Options.Where(d => d.EndpointOption).ToDictionary(d => d.Key, d => d.Value)
-               }).SingleAsync();
+            var config = await configurationContext.PushChannelConfigurations
+                .Where(v => v.Id == configurationId)
+                .SingleAsync();
+
+            var options = await configurationContext.PushChannelOptions
+                .Where(x => x.PushChannelConfigurationID == configurationId && x.EndpointOption)
+                .ToDictionaryAsync(d => d.Key, d => d.Value);
+
+            return new PushEndpoint
+            {
+                Endpoint = config.Endpoint,
+                EndpointOptions = options
+            };
         }
 
         public async Task<Abstractions.Models.PushChannelConfiguration[]> GetForOptionsAsync(string userId, IDictionary<string, string> configurationOptions)

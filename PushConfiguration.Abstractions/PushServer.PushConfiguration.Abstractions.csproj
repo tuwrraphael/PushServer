@@ -1,21 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <Authors>tuwrraphael</Authors>
     <Description>
-      Abstractions for push subscription management using PushServer framework for ASP.NET Core 2.
+      Abstractions for push subscription management using PushServer framework for ASP.NET Core 3.1.
 Commonly used types:
 PushChannelConfiguration
 PushChannelOptions
-    </Description>
+</Description>
     <PackageProjectUrl>https://github.com/tuwrraphael/PushServer/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/tuwrraphael/PushServer/</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>abstractions webpush notifications asp.net core pushserver</PackageTags>
     <PackageIconUrl>https://tuwrraphael.github.io/PushServer/logo.png</PackageIconUrl>
+    <PackageId>PushServer.PushConfiguration.Abstractions</PackageId>
   </PropertyGroup>
 
 </Project>
