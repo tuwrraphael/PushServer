@@ -15,7 +15,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>webpush notifications asp.net core pushserver</PackageTags>
     <PackageIconUrl>https://tuwrraphael.github.io/PushServer/logo.png</PackageIconUrl>
-    <PackageId>PushServer.WebPush.Core31</PackageId>
+    <PackageId>PushServer.WebPush</PackageId>
   </PropertyGroup>
 
   <ItemGroup>

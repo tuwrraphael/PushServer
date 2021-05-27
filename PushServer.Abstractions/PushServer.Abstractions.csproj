@@ -16,7 +16,7 @@ IPushProvider
     <RepositoryType>git</RepositoryType>
     <PackageTags>abstractions webpush notifications asp.net core pushserver</PackageTags>
     <PackageIconUrl>https://tuwrraphael.github.io/PushServer/logo.png</PackageIconUrl>
-    <PackageId>PushServer.Abstractions.Core31</PackageId>
+    <PackageId>PushServer.Abstractions</PackageId>
     <Company>tuwrraphael</Company>
   </PropertyGroup>
 

@@ -12,7 +12,7 @@ In a modular approach different push providers like Web Push or Azure Notificati
     <RepositoryType>git</RepositoryType>
     <PackageTags>webpush notifications asp.net core pushserver</PackageTags>
     <PackageIconUrl>https://tuwrraphael.github.io/PushServer/logo.png</PackageIconUrl>
-    <PackageId>PushServer.Core31</PackageId>
+    <PackageId>PushServer</PackageId>
   </PropertyGroup>
 
   <ItemGroup>

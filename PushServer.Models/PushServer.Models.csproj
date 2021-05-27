@@ -15,7 +15,7 @@ PushOptions
     <RepositoryType>git</RepositoryType>
     <PackageTags>models webpush notifications asp.net core pushserver</PackageTags>
     <Company>tuwrraphael</Company>
-    <PackageId>PushServer.Models.Core31</PackageId>
+    <PackageId>PushServer.Models</PackageId>
   </PropertyGroup>
 
 </Project>

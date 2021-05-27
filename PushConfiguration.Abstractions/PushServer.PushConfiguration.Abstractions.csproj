@@ -16,7 +16,7 @@ PushChannelOptions
     <RepositoryType>git</RepositoryType>
     <PackageTags>abstractions webpush notifications asp.net core pushserver</PackageTags>
     <PackageIconUrl>https://tuwrraphael.github.io/PushServer/logo.png</PackageIconUrl>
-    <PackageId>PushServer.PushConfiguration.Abstractions.Core31</PackageId>
+    <PackageId>PushServer.PushConfiguration.Abstractions</PackageId>
   </PropertyGroup>
 
 </Project>

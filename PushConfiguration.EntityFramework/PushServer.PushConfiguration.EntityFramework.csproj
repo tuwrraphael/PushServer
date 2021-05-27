@@ -13,7 +13,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>entityframework webpush notifications asp.net core pushserver</PackageTags>
     <PackageIconUrl>https://tuwrraphael.github.io/PushServer/logo.png</PackageIconUrl>
-    <PackageId>PushServer.PushConfiguration.EntityFramework.Core31</PackageId>
+    <PackageId>PushServer.PushConfiguration.EntityFramework</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
