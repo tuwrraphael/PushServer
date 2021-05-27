@@ -4,11 +4,11 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>1.0.4</Version>
-    <Authors>lombardo</Authors>
+    <Authors>tuwrraphael</Authors>
     <Description>
       Adapter to use WebPush client from https://github.com/web-push-libs/web-push-csharp with PushServer framework for ASP.NET Core 3.1</Description>
-    <PackageProjectUrl>https://github.com/ericklombardo/PushServer/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/ericklombardo/PushServer/</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/tuwrraphael/PushServer/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/tuwrraphael/PushServer/</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>webpush notifications asp.net core pushserver</PackageTags>
     <PackageIconUrl>https://tuwrraphael.github.io/PushServer/logo.png</PackageIconUrl>

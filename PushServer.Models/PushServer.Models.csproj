@@ -4,17 +4,17 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>1.0.4</Version>
-    <Authors>lombardo</Authors>
+    <Authors>tuwrraphael</Authors>
     <Description>
       Models used by the PushServer framework for ASP.NET Core 3.1.
 Commonly used types:
 PushOptions
     </Description>
-    <PackageProjectUrl>https://github.com/ericklombardo/PushServer</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/ericklombardo/PushServer</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/tuwrraphael/PushServer</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/tuwrraphael/PushServer</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>models webpush notifications asp.net core pushserver</PackageTags>
-    <Company>lombardo</Company>
+    <Company>tuwrraphael</Company>
     <PackageId>PushServer.Models.Core31</PackageId>
   </PropertyGroup>
 

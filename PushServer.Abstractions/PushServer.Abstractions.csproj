@@ -4,20 +4,20 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>1.2.2</Version>
-    <Authors>lombardo</Authors>
+    <Authors>tuwrraphael</Authors>
     <Description>
       Abstractions for the PushServer framework for ASP.NET Core 3.1.
 Commonly used types:
 IPushConfigurationManager
 IPushProvider
 </Description>
-    <PackageProjectUrl>https://github.com/ericklombardo/PushServer/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/ericklombardo/PushServer/</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/tuwrraphael/PushServer/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/tuwrraphael/PushServer/</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>abstractions webpush notifications asp.net core pushserver</PackageTags>
     <PackageIconUrl>https://tuwrraphael.github.io/PushServer/logo.png</PackageIconUrl>
     <PackageId>PushServer.Abstractions.Core31</PackageId>
-    <Company>lombardo</Company>
+    <Company>tuwrraphael</Company>
   </PropertyGroup>
 
   <ItemGroup>
